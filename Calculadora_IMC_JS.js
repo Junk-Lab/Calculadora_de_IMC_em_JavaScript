@@ -1,7 +1,7 @@
 //faz o teste do link do HTML e JavaScript
-console.log("echo!!")
+//console.log("echo!!")
 
-// Função para calcular o IMC
+//Função para calcular o IMC
 function CalcularIMC() {
   // Cria o elemento OutputResultado
   const outputResultado = document.querySelector("#Resultado");
@@ -14,7 +14,7 @@ function CalcularIMC() {
   const outputPeso = document.querySelector("#OutputPeso");
   const outputAltura = document.querySelector("#OutputAltura");
 
-  // Obtém o valor do input
+  // Obtém o valor dos inputs
   const valorPeso = parseFloat(inputPeso.value);
   const valorAltura = parseFloat(inputAltura.value);
 
@@ -24,15 +24,33 @@ function CalcularIMC() {
 
   // Verifica se o valor do input é um número válido
   if (isNaN(valorPeso) || isNaN(valorAltura) || valorAltura <= 0) {
-    alert("Insira um valor válido para o peso e a altura.");
-    return;
+      alert("Insira um valor válido para o peso e a altura.");
+      return;
   }
 
   // Faz o cálculo de IMC
   const imc = valorPeso / (valorAltura * valorAltura);
 
-  // Exibe o IMC no elemento de saída
-  outputResultado.textContent = `IMC: ${imc.toFixed(2)}`;
+  // Determina os parâmetros do IMC com base no valor calculado
+  let parametrosIMC;
+  if (imc < 16.99) {
+      parametrosIMC = " Muito abaixo do peso";
+  } else if (imc >= 16.0 && imc < 18.49) {
+      parametrosIMC = " Abaixo do peso";
+  } else if (imc >= 18.50 && imc < 24.99) {
+      parametrosIMC = " Regular";
+  } else if (imc >= 25.0 && imc < 29.99) {
+      parametrosIMC = " Sobrepeso";
+  } else if (imc >= 30.0 && imc < 34.99) {
+      parametrosIMC = " Obesidade I";
+  } else if (imc >= 35.0 && imc < 39.99) {
+      parametrosIMC = " Obesidade II";
+  } else {
+      parametrosIMC = " Obesidade III";
+  }
+
+  // Exibe o IMC e os parâmetros no elemento de saída
+  outputResultado.textContent = `IMC: ${imc.toFixed(2)} - ${parametrosIMC}`;
 
   // Mostra a tela de resultados
   document.getElementById("Position1").style.display = "block";
@@ -41,10 +59,4 @@ function CalcularIMC() {
 // Função para recarregar a página
 function recarregarPagina() {
   location.reload();
-}
-
-// Função para mostrar a tela de resultados
-function mostrar() {
-  // Mostra a tela de resultados
-  document.getElementById("Position1").style.display = "block";
 }
